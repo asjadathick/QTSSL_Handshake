@@ -5,7 +5,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #include <sys/socket.h>
 #include <resolv.h>
 #include <netdb.h>
@@ -17,7 +17,7 @@
 int OpenConnection(const char *hostname, int port);
 SSL_CTX* InitCTX(void);
 void ShowCerts(SSL* ssl);
-int performHandshake(int count, char *strings[]);
+std::string performHandshake(int count, char *strings[]);
 
 
 #endif // SSL_H
