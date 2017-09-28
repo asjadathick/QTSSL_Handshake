@@ -11,6 +11,7 @@
 #include <netdb.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+#include <exception>
 
 #define FAIL    -1
 

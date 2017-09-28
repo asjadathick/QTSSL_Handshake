@@ -7,7 +7,7 @@
 
      if ((host = gethostbyname(hostname)) == NULL){
          perror(hostname);
-         abort();
+         throw std::string("error");
      }
      sd = socket(PF_INET, SOCK_STREAM, 0);
      bzero(&addr, sizeof(addr));
@@ -17,7 +17,7 @@
      if (connect(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0){
          close(sd);
          perror(hostname);
-         abort();
+         throw std::string("error");
      }
      return sd;
  }
@@ -34,10 +34,6 @@
          abort();
      }
      return ctx;
- }
-
- void ShowCerts(SSL* ssl){
-
  }
 
  std::string performHandshake(int count, char *strings[])
@@ -63,13 +59,24 @@
      hostname=strings[1];
      portnum=strings[2];
 
-     ctx = InitCTX();
-     server = OpenConnection(hostname, atoi(portnum));
-     ssl = SSL_new(ctx);
-     SSL_set_fd(ssl, server);
+     try{
+         ctx = InitCTX();
+         server = OpenConnection(hostname, atoi(portnum));
+         ssl = SSL_new(ctx);
+         SSL_set_fd(ssl, server);
+     } catch (std::string exception){
+         sprintf(buffer + strlen(buffer), "Could not open connection. Handshake stopped.");
+         output = buffer;
+         return output;
+     }
+
+
 
      if ( SSL_connect(ssl) == FAIL ){
          ERR_print_errors_fp(stderr);
+         sprintf(buffer + strlen(buffer), "Error while negotiating handshake. Check port number");
+         output = buffer;
+         return output;
      }
      else {
          sprintf(buffer + strlen(buffer), "Cipher suite: %s\n", SSL_get_cipher(ssl));
