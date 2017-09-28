@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QLabel>
+#include <QLineEdit>
 
 namespace Ui {
    class MainWindow;
@@ -19,6 +20,8 @@ private slots:
 private:
    QPushButton *m_button;
    QLabel *q_label;
+   QLineEdit *hostIn;
+   QLineEdit *portIn;
 };
 
 #endif // MAINWINDOW_H

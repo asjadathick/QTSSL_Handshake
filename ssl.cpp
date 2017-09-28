@@ -56,6 +56,9 @@
          sprintf(buffer, "usage: %s <hostname> <portnum>\n", strings[0]);
          exit(0);
      }
+
+     sprintf(buffer + strlen(buffer), "Hostname used: %s\nPort used: %s\n", strings[1], strings[2]);
+
      SSL_library_init();
      hostname=strings[1];
      portnum=strings[2];
