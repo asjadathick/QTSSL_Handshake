@@ -17,7 +17,6 @@
 
 int OpenConnection(const char *hostname, int port);
 SSL_CTX* InitCTX(void);
-void ShowCerts(SSL* ssl);
 std::string performHandshake(int count, char *strings[]);
 
 

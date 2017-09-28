@@ -1,5 +1,8 @@
 #include "ssl.h"
 
+//Reference: https://www.ibm.com/developerworks/library/l-openssl/index.html
+//Referece: https://wiki.openssl.org/index.php/Libcrypto_API
+
  int OpenConnection(const char *hostname, int port){
      int sd;
      struct hostent *host;
@@ -44,8 +47,6 @@
      SSL_CTX *ctx;
      int server;
      SSL *ssl;
-     char buf[1024];
-     int bytes;
      char *hostname, *portnum;
 
      if (count != 3) {
